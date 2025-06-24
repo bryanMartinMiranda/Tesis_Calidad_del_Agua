@@ -1,0 +1,246 @@
+%!TeX root=../thesisStructure.tex
+%% Appendix A
+\chapter{Implementación en Python de modelo de red neuronal}
+
+El código implementado para entrenamiento y validación de la red neuronal se muestra a continuación.
+
+\begin{lstlisting}[language=Python]
+	import numpy as np
+	import matplotlib.pyplot as plt
+	import pandas as pd
+	
+	# Semilla constante para generacion de numeros aleatorios. 
+	import random
+	random.seed(10)
+	np.random.seed(10)
+
+	# Importar archivo CSV
+	datosProceso=pd.read_csv('Datos2024.csv')
+
+	Pd_ORP=datosProceso.ORP
+	Pd_Cloro=datosProceso.cloroResidual
+	Pd_Oxigeno=datosProceso.DO
+	Pd_target=datosProceso.fase
+
+	# Importar modulos de IA de Sci Kit Learn
+	from sklearn.model_selection import train_test_split
+	from sklearn.neural_network import MLPClassifier
+	from sklearn.preprocessing import MinMaxScaler
+
+	ORP1=np.array([datosProceso.ORP])
+	Cloro1=np.array([datosProceso.cloroResidual])
+	Oxigeno1=np.array([datosProceso.DO])
+	target1=np.array([datosProceso.fase])
+
+	# Escalamiento de los parametros para la red neuronal.
+	scaler1=MinMaxScaler(feature_range=(0.01,1))
+	scaler1.fit(Oxigeno1.T)
+	oxigenoEscalado1=scaler1.transform(Oxigeno1.T)
+
+	scaler2=MinMaxScaler(feature_range=(0.01,1))
+	scaler2.fit(ORP1.T)
+	orpEscalado1=scaler2.transform(ORP1.T)
+
+	scaler3=MinMaxScaler(feature_range=(0.01,1))
+	scaler3.fit(Cloro1.T)
+	CloroEscalado1=scaler3.transform(Cloro1.T)
+
+	# Convertir los datos en vectores columna.
+	OrpOrdenado1=orpEscalado1.reshape(16434,)
+	cloroOrdenado1=CloroEscalado1.reshape(16434,)
+	oxigenoOrdenado1=oxigenoEscalado1.reshape(16434,)
+	targetsOrdenados1=target1.reshape(16434,)
+
+	# Juntar los vectores columna en 1 matriz.
+	datasetNumpyScaled=np.column_stack((OrpOrdenado1,
+                                        cloroOrdenado1,
+                                        oxigenoOrdenado1,
+                                        targetsOrdenados1))
+
+	# Dividir la matriz en conjuntos de entrenamiento y validacion.
+	parametros1=datasetNumpyScaled[:,0:3]
+	objetivos1=datasetNumpyScaled[:,3]
+	X_train,X_test,y_train,y_test=train_test_split(parametros1,objetivos1,train_size=0.8,random_state=10,shuffle=True)
+
+	# Inicializar la clase de red neuronal.
+	modelo1=MLPClassifier(hidden_layer_sizes=(30,30,),activation='tanh',solver='sgd',learning_rate='constant', learning_rate_init=0.3,max_iter=70,random_state=(10))
+
+	# Entrenar el modelo con caracteristicas y targets para entrenamiento. 
+	modelo1.fit(X_train,y_train)
+
+	# Graficar la curva de minimizacion de la funcion de costo. 
+	plt.plot(modelo1.loss_curve_,'r')
+	plt.title('Curva de aprendizaje')
+	plt.xlabel('Epocas')
+	plt.ylabel('Loss')
+
+	# Impresion en la terminal de resultados de validacion, funcion de activacion en capa de salida y epocas en entrenamiento.
+	print(modelo1.out_activation_)
+	print('Iteraciones:',modelo1.n_iter_)
+	print('Porcentaje de aciertos:',modelo1.score(X_test, y_test))
+\end{lstlisting}
+
+Comenzando con las primeras 3 líneas de código se importan librerías de python para generación de gráficos y manejo de vectores y matrices. Después en las líneas 5 a 8 del código se genera un valor fijo o constante para 
+la generación de números aleatorios, lo cual en este caso servirá más adelante para generar patrones constantes al momento de realizar la partición de los datos recolectados en grupo de entrenamiento y validación, es decir,
+que se generen los mismos grupos cada vez que se ejecute el código para entrenar la red neuronal. Posteriormente, en la línea 11 de código se importa el archivo de tipo CSV el cual contiene todo el conjunto de datos provenientes 
+de las caracterizaciones del proceso de potabilización.
+
+En las líneas 18 a 21 de código se importan las librerías de inteligencia artificial provenientes del desarrollador \textit{scikit-learn}, del cual su sitio web es \textit{https://scikit-learn.org/stable/index.html}. Para este 
+código en específico se importan módulos para partición de un conjunto de datos en grupos para entrenamiento y validación, 1 módulo de modelo de red neuronal y otro módulo para escalamiento de datos, los cuales se explican 
+más adelante. En las líneas 23 a 26 del código se generan vectores de tipo \textit{numpy} para almacenar de forma individual cada una de las 4 columnas del archivo CSV, las cuales corresponden con los 3 parámetros de calidad 
+del agua, ORP, cloro residual, oxígeno disuelto, además de 1 cuarta columna que corresponde a la fase del proceso de registro del archivo, la cual se enumera de 1 a 5, teniendo 1 para agua cruda, 2 para tanque de mezclado 
+rápido, 3 para canal sedimentador, 4 para salida de flitración y 5 para agua potable.
+
+En las líneas 28 a 39 del código se realiza el escalamiento de cada uno de los parámetros de calidad del agua mediante la clase \textit{MinMaxScaler}. Este escalamiento sirve para tener los datos correspondientes a cada 
+uno de las variables del modelo dentro de un rango de valores específico, que para el caso de redes neuronales se eligen valores pequeños para evitar que diferentes variables con diferencias grandes en su magnitud sean 
+procesadas por el algoritmo, evitando así por ejemplo que ciertos pesos sinápticos de la red sean de magnitud muy grande y otros pesos sean de magnitud muy pequeña. La ecuación de escalamiento viene dada por la forma (\ref{eq:ecuacion3001}).
+
+\begin{equation}
+	Dato Escalado=(Maximo - Minimo) \frac{Valor Original - Valor Minimo}{Valor Maximo - Valor Minimo} + Minimo
+	\label{eq:ecuacion3001}
+\end{equation}
+
+La ecuación (\ref{eq:ecuacion3001}) lo que nos indica es que el resultado de escalamiento para un valor cualquiera se obtiene restando del dato original el valor mínimo que toma esa variable, dividiendo este resultado entre la diferencia 
+del valor máximo de la variable y el valor mínimo de la variable, para después el resultado de esa división multiplicarlo por la diferencia de los valores máximo y mínimo deseados, y finalmente sumar al resultado anterior 
+el valor mínimo deseado. Para el caso planteado en el código el valor mínimo deseado es de 0.01 y el valor máximo deseado es de 1, lo cual se indica en el parámetro de la clase, \textit{feature range}. Este procedimiento 
+se realiza de forma individual para cada uno de los 3 parámetros de calidad del agua. 
+
+Posteriormente, en las líneas 41 a 45 del código los datos escalados se acomodan como vectores columna usando la función \textit{reshape}, para posteriormente en la línea 48 del código juntar las columnas de datos escalados 
+y el vector columna de targets en una matriz mediante el uso de la función \textit{column stack}. Después en las líneas de código 54 y 55 se genera la variable \textit{parametros1} en la cual se almacenan los datos de los 
+3 parámetros de calidad del agua, y en la variable \textit{objetivos1} se almacenan los valores correspondientes a los targets o fases del proceso.
+
+En la línea 56 del código se hace uso de la clase \textit{train test split} para generar grupos de entrenamiento y validación a partir de todo el conjunto de datos previamente escalados. La clase \textit{train test split} 
+primeramente recibe como argumentos las variables que contienen los vectores de características, en este caso los parámetros de calidad del agua, y los targets. Posteriormente, el argumento \textit{train size} nos permite 
+indicar qué porcentaje de todos los datos será agrupado como conjunto de entrenamiento; por ejemplo, si se indica un valor de 0.8, el 80$\%$ de los datos serán para entrenamiento y el 20$\%$ restante para validación; un 
+valor de 0.7 indicaría que un 70$\%$ se desea como conjunto de entrenamiento y el 30$\%$ restante para validación. Finalmente, el argumento de \textit{random state} nos sirve para tener una semilla constante al generar de 
+forma aleatoria los grupos de entrenamiento y validación, mientras que el argumento de \textit{shuffle} nos permite ordenar de forma aleatoria el conjunto de datos al indicar como \textit{True} su respectivo valor.
+
+En la línea 59 del código se inicializa la clase \textit{MLPClassifier} que ejecuta el modelo de red neuronal deseado. Primeramente se debe indicar el valor del argumento \textit{hidden layer sizes}, en el cual se indica 
+el número de capas ocultas que tendrá la red neuronal, además de poder indicar el número específico de nodos que llevará cada capa oculta; por ejemplo, un valor (10,) indica que se desea 1 capa oculta con 10 nodos en dicha 
+capa; un valor de (10,15,20,) indicaría que se desea una arquitectura con 3 capas ocultas, teniendo 10 nodos en la primera capa oculta, 15 nodos en la segunda, y 20 nodos en la tercera y última capa oculta.
+
+Posteriormente, el argumento \textit{activation} nos permite especificar la función de activación que llevarán las capas ocultas, teniendo en consideración que la clase \textit{MLPClassifier} utiliza siempre la función \textit{softmax}
+en la capa de salida, es decir, el valor del argumento \textit{activation} únicamente es aplicable a las capas ocultas. Los valores permitidos para el argumento \textit{activation} son \textit{identity}, \textit{logistic}, 
+\textit{tanh} y \textit{relu}, donde \textit{identity} corresponde a la función lineal, es decir, la salida es igual a la entrada; \textit{logistic} es la función sigmoide, y las últimas 2 opciones son para tangente hiperbólica 
+y función Relu, respectivamente.
+
+El siguiente argumento a especificar es \textit{solver}, el cual nos sirve para indicar qué método de minimización de la función de costo se desea utilizar; en nuestro caso se elige \textit{sgd}, que corresponde a descenso 
+por gradiente, el cual es el método que se ha explicado en capítulos anteriores. Después, el argumento \textit{learning rate} se especifica como \textit{constant}, lo que nos permite que la tasa de aprendizaje sea constante 
+durante todo el entrenamiento; si se especifica el valor de este argumento como \textit{adaptive} se puede tener un valor de tasa de aprendizaje que varía conforme cambia la tasa o velocidad de decremento en la búsqueda 
+del valor mínimo en la función de costo. Posteriormente, el argumento \textit{learning rate init} sirve para indicar el valor de tasa de aprendizaje deseado, que se mantendrá constante si el argumento \textit{learning rate} 
+tiene un valor de \textit{constant}, o si su valor es \textit{adaptive} entonces el valor del argumento \textit{learning rate init} dejará de ser válido en algún punto del entrenamiento y cambiará a un valor distinto. 
+Finalmente, el argumento de \textit{max iter} nos permite indicar el número máximo de épocas de entrenamiento a ejecutar; en las pruebas realizadas, si el algoritmo converge antes de llegar a este número máximo, entonces 
+en ese punto la optimización se detendrá y no llegará al número máximo de épocas permitidas.
+
+Posteriormente, en la línea 62 de código se utiliza la función \textit{fit} de la clase \textit{MLPClassifier} para entrenar la red neuronal con los conjuntos para entrenamiento \textit{X train} y \textit{y train} generados 
+por la función \textit{train test split}, la cual también genera las variables \textit{X test} y \textit{y test}, las cuales son el grupo de datos para validación.
+
+En las líneas 64 a 68 del código se genera la gráfica de minimización de la función de costo durante el entrenamiento, usando el argumento \textit{loss curve} el cual almacena después de cada época de entrenamiento el valor 
+del error hasta ese momento. Finalmente, en la línea 72 del código se imprime en la terminal el número de épocas ejecutadas, ya sea que algoritmo lograse o no converger en la minimizacaión de la función de costo; la última 
+línea de código, línea 73, usa la función \textit{score} de la clase \textit{MLPClassifier} para verificar con los grupos de datos para validación el número de aciertos que logra el clasificador de red neuronal una vez que 
+ha sido entrenado con un conjunto de especificaciones dadas, ya que el entrenamiento se puede realizar el número de veces requerida al ir variando la arquitectura de la red e ir encontrando los mejores resultados tanto en 
+minimización de la función de error como en el porcentaje de aciertos. 
+
+\clearpage
+
+En la siguiente imagen se muestra un diagrama del tipo de red neuronal generado con la clase \textit{MLPClassifier}.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[x=3.5cm,y=2.5cm]
+	\readlist\Nnod{3,3,3} % number of nodes per layer
+	% \Nnodlen = length of \Nnod (i.e. total number of layers)
+	% \Nnod[1] = element (number of nodes) at index 1
+	\foreachitem \N \in \Nnod{ % loop over layers
+	  % \N     = current element in this iteration (i.e. number of nodes for this layer)
+	  % \Ncnt  = index of current layer in this iteration
+	  \foreach \i [evaluate={\x=\Ncnt; \y=\N/2-\i+1.5; \prev=int(\Ncnt-1);}] in {1,...,\N}{ % loop over nodes
+	  \ifnum\x=1
+	  \node[input] (N\Ncnt-\i) at (\x,\y) {$I_{\i}$};
+  \else\ifnum \x=\Nnodlen
+  \node[output] (N\Ncnt-\i) at (\x,\y) {$O_{\x,\i}$};
+  \else\ifnum \x>1
+  \node[neuron] (N\Ncnt-\i) at (\x,\y) {$N_{\x,\i}$};
+  \fi 
+  \fi     
+  \fi
+  
+		\ifnum\Ncnt>1 % connect to previous layer
+		  \foreach \j in {1,...,\Nnod[\prev]}{ % loop over nodes in previous layer
+			\draw[connect] (N\prev-\j) -- (N\Ncnt-\i); % connect arrows directly
+		  }
+		\fi % else: nothing to connect first layer
+	  }
+	}
+	\node[above,align=center] at (N1-1.90) {Input\\[-0.2em]layer};
+	\node[above,align=center] at (N2-1.90) {Hiden\\[-0.2em]layer};
+	\node[above,align=center] at (N3-1.90) {Output\\[-0.2em]layer};
+	%\draw[connect] (N2-2) -- (N3-1) node[pos=0.50]{\contour{white}{$w{1,1}$}};
+
+	% inputs nodes
+	\node[left=1.5cm] (in1) at (N1-1) {$ORP$};
+	\node[left=1.5cm] (in2) at (N1-2) {$Cloro$};
+	\node[left=1.5cm] (in3) at (N1-3) {$Oxigeno$};
+	% outputs nodes
+	\node[right=1.5cm] (out1) at (N3-1) {$T_1$};
+	\node[right=1.5cm] (out2) at (N3-2) {$T_2$};
+	\node[right=1.5cm] (out3) at (N3-3) {$T_3$};
+  
+  %in/out connections
+	\contourlength{0.2em}
+	\draw[connect] (in1) -- (N1-1) node[pos=0.50]{\contour{white}{}};
+	\draw[connect] (in2) -- (N1-2) node[pos=0.50]{\contour{white}{}};
+	\draw[connect] (in3) -- (N1-3) node[pos=0.50]{\contour{white}{}};
+	
+	\draw[connect] (N3-1) -- (out1) node[pos=0.50]{\contour{white}{}};
+	\draw[connect] (N3-2) -- (out2) node[pos=0.50]{\contour{white}{}};
+	\draw[connect] (N3-3) -- (out3) node[pos=0.50]{\contour{white}{}};
+	
+	% Weight connections:
+  %  Wih:  [[-0.34583716  0.2400497  -0.23668498]
+  %   [ 0.03373939 -0.48542504  0.41874701]
+  %   [ 0.40071485 -0.46657857  0.45694934]]
+  
+	%% input 1
+	\draw[connect] (N1-1) -- (N2-1) node[above,pos=0.50]{\contour{white}{\scriptsize $w_{11}$}}; %w11
+	\draw[connect] (N1-1) -- (N2-2) node[right=0.1,pos=0.1]{\contour{white}{\scriptsize $w_{12}$}}; %w12
+	\draw[connect] (N1-1) -- (N2-3) node[left=0.2cm,pos=0.15]{\contour{white}{\scriptsize $w_{13}$}}; %w13
+
+	%% input 2
+	\draw[connect] (N1-2) -- (N2-1) node[left=0.2cm,pos=0.20]{\contour{white}{\scriptsize $w_{21}$}}; % w21
+	\draw[connect] (N1-2) -- (N2-2) node[align=center,pos=0.30]{\contour{white}{\scriptsize $w_{22}$}}; %w22
+	\draw[connect] (N1-2) -- (N2-3) node[left=0.2cm,pos=0.20]{\contour{white}{\scriptsize $w_{23}$}}; %w23
+	  
+	%%input 3
+	 \draw[connect] (N1-3) -- (N2-1) node[left=0.1cm,pos=0.10]{\contour{white}{\scriptsize $w_{31}$}}; %w31
+	\draw[connect] (N1-3) -- (N2-2) node[right=0.cm,pos=0.10]{\contour{white}{\scriptsize $w_{32}$}}; %w32 
+	\draw[connect] (N1-3) -- (N2-3) node[below,pos=0.30]{\contour{white}{\scriptsize $w_{33}$}};  %w33
+	
+  %Who:  [[-0.36279068 -0.21617165  0.10608318]
+  % [ 0.44422514  0.35273554 -0.49774077]
+  % [ 0.02122603  0.05203763 -0.01462259]]
+	
+   %% hidden 1
+	\draw[connect] (N2-1) -- (N3-1) node[above,pos=0.50]{\contour{white}{\scriptsize $w_{11}$}}; %w11
+	\draw[connect] (N2-1) -- (N3-2) node[right=0.1,pos=0.1]{\contour{white}{\scriptsize $w_{12}$}}; %w12
+	\draw[connect] (N2-1) -- (N3-3) node[left=0.2cm,pos=0.15]{\contour{white}{\scriptsize $w_{13}$}}; %w13
+	
+   %% hidden 2
+	\draw[connect] (N2-2) -- (N3-1) node[left=0.2cm,pos=0.20]{\contour{white}{\scriptsize $w_{21}$}}; %w21
+	\draw[connect] (N2-2) -- (N3-2) node[align=center,pos=0.25]{\contour{white}{\scriptsize $w_{22}$}}; %w22
+	\draw[connect] (N2-2) -- (N3-3) node[left=0.2cm,pos=0.25]{\contour{white}{\scriptsize $w_{23}$}}; %w23
+	
+	%%hidden 3
+	 \draw[connect] (N2-3) -- (N3-1) node[left=0.1cm,pos=0.10]{\contour{white}{\scriptsize $w_{31}$}}; %w31
+	\draw[connect] (N2-3) -- (N3-2) node[right=0.1cm,pos=0.15]{\contour{white}{\scriptsize $w_{32}$}}; %w32
+	\draw[connect] (N2-3) -- (N3-3) node[align=center,pos=0.30]{\contour{white}{\scriptsize $w_{33}$}}; %w33
+
+	%\label{fig:figura_RED}
+	
+  \end{tikzpicture}
+\end{figure}
+
+El tipo de red neuronal generada es de tipo \textit{fully connected}, es decir, cada una de las señales de salida de la capa de entrada lleva una conexión con cada nodo de la capa oculta siguiente; cada señal de salida 
+de cada nodo de una capa oculta tiene conexión con todos los nodos de la siguiente capa oculta, o en su respectivo caso, con todos los nodos de la capa de salida de la red.
+
+\clearpage

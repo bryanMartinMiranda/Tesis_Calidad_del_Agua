@@ -1,0 +1,77 @@
+\chapter{Conclusiones y trabajo futuro}
+\label{ch:conclusiones}
+
+El caso de estudio para este trabajo de tesis consistió en análisis de parámetros de calidad del agua en un proceso de potabilización para obtener estimaciones de la calidad del agua en dicho proceso de tratamiento. El primer 
+paso a realizar era recolectar datos de un conjunto de variables involucradas en el proceso de tratamiento, mediante la obtención de muestras de agua de diferentes puntos en la planta de potabilización. La obtención de los 
+datos de los distintos parámetros se realizó a través de sesiones de muestreo continuo con el uso de un equipo de instrumentación comercial, así como también mediante la aplicación de muestreos puntuales con el equipo de 
+medición del laboratorio de muestreo en la planta de potabilización. Una vez que se juntaba una cantidad significativa de datos se realizaban análisis de estadística descriptiva y obtención de coeficientes de correlación 
+para determinar qué parámetros permitían identificar los cambios inducidos en el agua al someterla a las diferentes etapas del proceso de potabilización. Finalmente, con los datos de los parámetros que resultaban significativos 
+se realizó el entrenamiento de modelos de red neuronal artificial con diferentes arquitecturas para clasificación de calidad del agua.
+
+La primer actividad ejecutada fue acudir a la instalación del OOAPAS de la planta de potabilización correspondiente para realizar un reconocimiento del proceso que ahí se lleva a cabo. Esa primera estancia en dichas instalaciones 
+sirvió para conocer el proceso en su totalidad, desde el producto de líquido crudo que se recibe de la presa hasta el producto final del proceso, que es agua potable apta para su distribución. En esta primera visita se nos 
+dió una plática descriptiva del proceso de tratamiento etapa por etapa, desde el pozo de agua cruda, pasando por las etapas de adición de sustancias para coagulación y floculación, así como la inyección de cloro para desinfección,
+todas estas incorporaciones de sustancias al agua a tratar, llevadas a cabo al inicio del proceso para tener el líquido listo para las etapas siguientes.
+
+El proceso de tratamiento, posterior a la adición de compuestos químicos, continua con las etapas de tanques de mezclado rápido y lento, así como el canal de sedimentación. En los tanques de mezclado se tiene la finalidad 
+de completar el proceso de agrupamiento de los agentes contaminantes presentes en el agua con el propósito de tenerlos juntos y facilitar su separación del líquido. Una vez que el líquido ha estado tanto en el tanque de 
+mezcla rápida como en el tanque de mezclado lento, posteriormente el agua se hace pasar por el canal sedimentador, etapa en la cual la mayoria de los componentes contaminantes son eliminados por efectos de gravedad.
+
+Finalmente, la última etapa de tratamiento del proceso es el bloque de filtros en donde se separan las partículas más pequeñas restantes para poder tener el producto final del proceso de potabilización. Una vez conociendo 
+adecuadamente el proceso a estudiar, es que se pudo iniciar con la recolección de muestras en diferentes fechas durante el transcurso del año 2024, con el propósito de medir diferentes parámetros de calidad del agua con ayuda 
+de instrumentación específica. En total fueron 6 los parámetros tomados en cuenta a lo largo del proyecto, los cuales son temperatura, pH, ORP, conductividad eléctrica, oxígeno disuelto y cloro residual. Las etapas del proceso 
+analizadas fueron la toma de agua cruda, el tanque de mezclado rápido, canal de sedimentación, la salida de los filtros y la toma de agua potable o salida del proceso. Los experimentos de medición para la recolección de 
+datos de las diferentes variables se llevaron a cabo tanto en el laboratorio de muestreo de la planta de potabilización como en los laboratorios de posgrado de electrónica en el tecnológico.
+
+Conforme se iba reuniendo cada vez una mayor cantidad de datos, si iban al mismo tiempo realizando los análisis de estadística descriptiva y obtención de coeficientes de correlación lineal entre los diferentes parámetros 
+para conocer si las variables que se estaban considerando serían posteriormente útiles para usarse en el entrenamiento de una red neuronal para clasificación de calidad del agua. Después de los primeros 6 meses del año 2024, 
+se decició descartar las variables de temperatura, pH y conductividad eléctrica debido a que sus resultados estadísticos no reflejaban un comportamiento variable conforme las condiciones reales del agua eran diferentes. En 
+este punto, se decidió agregar las variables de oxígeno disuelto y cloro residual junto con la variable de ORP que ya se había estado analizando para tener un conjunto final de parámetros que posteriormente serían las variables 
+utilizadas para el modelo de clasificación.
+
+Ya en el segundo semestre del año 2024, teniendo evidencia estadística que indicaba que las variables de ORP, cloro residual y oxígeno disuelto presentan para el proceso de potabilización una tendencia variable conforme 
+hay cambios en las condiciones reales de la calidad del agua a lo largo del proceso, y también hay evidencia de correlación entre estos 3 parámetros al obtener coeficientes de correlación de magnitud cercana a 1, es con estas 
+condiciones que se puede iniciar el entrenamiento de diferentes arquitecturas de red neuronal con los parámetros de ORP, cloro residual y oxígeno disuelto como variables de entrada al modelo.
+
+Para el entrenamiento de las diferentes arquitecturas de red neuronal se utilizaron principalmente 2 conjuntos de datos; el primero de ellos incluyendo una porción de datos atípicos correspondientes al mes de agosto cuando 
+era muy mala la calidad del agua que entraba a la planta debido a la época de lluvias; el segundo conjunto de datos era igual al primero pero eliminando precisamente esos registros de datos atípicos del mes de agosto. 
+
+En lo referente a los resultados obtenidos para clasificación de calidad del agua con el modelo de red neuronal, de manera general los resultados son positivos en su mayoría, teniendo algunos resultados de puntaje más bajo 
+para ciertas condiciones en la arquitectura de la red neuronal al momento de optimizarla con los datos de entrenamiento. Es decir, la mayoría de los experimentos de entrenamiento y validación presentaban porcentajes de clasificación 
+mayores a 90 y las gráficas de comportamiento del error mostraban un descenso cercano al valor de 0. Sin embargo, durante las diferentes pruebas realizadas se identificó que el factor de tasa de aprendizaje era el parámetro 
+determinante para una mejor optimización del modelo. Otros factores como el tener 1 o 2 capas ocultas en la red no eran determinantes para que el clasificador bajara su porcentaje de aciertos. Tampoco el número de épocas 
+era absolutamente diferencial en este aspecto, aunque si era necesario asegurarse de contar con el número suficiente de épocas de entrenamiento para llegar a la convergencia del algoritmo de descenso por gradiente para lograr 
+el valor mínimo de error.
+
+Por lo tanto, el factor que se identificó como más diferencial para el nivel de los resultados del clasificador, fue el parámetro de tasa de aprendizaje. Ya se conoce previamente de las referencias teóricas sobre redes neuronales 
+que el valor de la velocidad de aprendizaje o convergencia en la red neuronal puede cambiar drásticamente los resultados finales que entrega con datos de validación o de prueba. Para nuestro caso específico, valores de tasa 
+de aprendizaje muy pequeños o de magnitud elevada sí generaban un peor rendimiento en la curva de descenso de minimización del error, lo que consecuentemente generaría menor porcentaje de aciertos del clasificador con los 
+datos de validación.
+
+\section{Trabajo futuro}
+
+A continuación se enlistan las posibles áreas de oportunidad de mejora en la investigación enfocada a calidad del agua mediante el uso de técnicas similares a las empleadas en este proyecto.
+
+\begin{itemize}
+    \item Respecto a la calendarización para la toma de muestras de agua que serán posteriormente usadas para reunir datos de parámetros de calidad del agua, a lo largo del año en el que se trabajó, la recolección de muestras 
+    se llevó a cabo en diferentes momentos en el transcurso del 2024. En esta parte es importante resaltar que cualquier caso de estudio que se lleve a cabo para generar una caracterización de las variables de calidad del 
+    agua, es necesario que los muestreos sean realizados puntualmente cada que existan cambios de clima en la región donde se esté realizando el estudio. Es decir, es importante tener muestras de la época invernal cuando 
+    las temperaturas son bajas; se debe muestrear de nuevo entre los meses de marzo y junio cuando la temperatura ambiental es muy elevada; posteriormente es importante tener muestras de la época de lluvias entre julio y 
+    octubre para tener referencias sobre los efectos ocasionados por las lluvias en la calidad del agua que se está tratando; y finalmente también es importante tener información de la época otoñal para monitorear cómo cambia 
+    la calidad del agua al dejar de recibir escurrimientos ocasionados por lluvia y se regresa a condiciones previas.   
+    \item Referente a la cantidad de tiempo que se emplea para medir la magnitud de las variables de calidad del agua cada vez que se recolectan muestras, también se puede hacer recomendaciones con base en la experiencia 
+    adquirida. Si el equipo de medición utilizado es para mediciones puntuales, es decir, solo 1 dato por medición, es importante que la medición sea realizada inmediatamente después de terminar las recolección de muestras 
+    de agua para no permitir que las propiedades del líquido cambien debido a factores externos, tales como la temperatura. En el caso de que el equipo de medición utilizado sea para mediciones continuas, es decir, equipo de  
+    instrumentación que pueda recolectar y almacenar datos de forma indefinida, en este caso también es importante que los tiempos de medición no sean mayores a 15 o 20 minutos. Esto es debido al mismo factor de no permitir 
+    el deterioro de la muestra al tenerla expuesta a factores externos que puedan modificar sus propiedades.
+    \item En lo que se refiere al tipo de instrumentación empleada para la medición de las muestras, en este proyecto se han utilizado tanto sensores de medición puntual como sensores de medición continua. Dada la experiencia 
+    que se ha tenido usando estas 2 diferentes técnicas, para futuras investigaciones la recomendación que se puede realizar es utilizar ambos tipos de sensores, ya que de esta forma se puede realizar la comparativa en el 
+    rendimiento de ambos tipos de instrumentos, y al mismo tiempo corroborar que los datos puntuales únicos estén dentro del rango dado por la medición continua.
+    \item En caso de que una futura investigación se planteara una metodología de recolección de datos en tiempo real con equipo de instrumentación fijo en las diferentes zonas a estudiar, es importante que los sensores o 
+    sondas de medición elegidos no requieran de calibración continua, es decir, se debe realizar la elección de instrumentos con capacidad para operar durante largos periodos de tiempo sin necesidad de acciones de mantenimiento.
+    Esto se resalta debido a que se ha observado que el uso de instrumentación no apta para funcionamiento en periodos de tiempo prolongados, después de pocos días de estar en operación, las mediciones que se recolectan 
+    comienzan a ser erróneas debido precisamente a las capacidades limitadas en los sensores utilizados.
+    \item En este proyecto se han utilizado los parámetros de temperatura, pH, conductividad eléctrica, ORP, cloro residual y oxígeno disuelto. Cualquier futura investigación puede plantear la posibilidad de trabajar con 
+    parámetros adicionales que en las referencias del estado del arte se encuentre evidencia de que esas variables son potencialmente útiles para identificar o diferenciar niveles de calidad del agua. El único factor a considerar
+    al incluir variables adicionales es que se requiere contar con el equipo de medición adecuado, ya sea para llevar a cabo mediciones puntuales o mediciones continuas. 
+\end{itemize}
