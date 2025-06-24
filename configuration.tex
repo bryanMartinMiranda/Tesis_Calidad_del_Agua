@@ -1,0 +1,98 @@
+%!TeX root=./thesisStructure.tex
+%Add here the packages, variables, definitions, environments and specific elements created only for your thesis
+
+% 1 Code listing setup
+%------------------
+\RequirePackage{listings}
+\RequirePackage{xcolor}
+\definecolor{gray97}{gray}{0.97}
+\definecolor{gray45}{gray}{0.45}
+\newcaptionname{spanish}{\lstlistlistingname}{Sección de Códigos}
+\renewcommand{\lstlistingname}{Código}
+\renewcommand{\lstlistlistingname}{Códigos}
+\lstset{ frame=Ltb,
+     framerule=0pt,
+     aboveskip=0.2cm,
+     framextopmargin=3pt,
+     framexbottommargin=3pt,
+     framexleftmargin=0.4cm,
+     framesep=0pt,
+     rulesep=.4pt,
+     backgroundcolor=\color{gray97},
+     rulesepcolor=\color{black},
+     %
+     stringstyle=\ttfamily,
+     showstringspaces = false,
+     %basicstyle=\small\ttfamily,
+     %basicstyle=\small,
+     commentstyle=\color{gray45}\ttfamily,
+     keywordstyle=\bfseries,
+     %
+     numbers=left,
+     numbersep=15pt,
+     numberstyle=\tiny,
+     numberfirstline = false,
+     breaklines=true,
+   }
+
+% 2 Commands and variables
+% 2.1 Thesis's title page config
+%------------------
+\newcommand{\myTitle}{Modelo basado en inteligencia artificial para la estimación de la calidad del agua a partir del estudio de parámetros fisicoquímicos en procesos de potabilización}
+\newcommand{\mySubtitle}{Caso de Estudio a Nivel Maestría}
+\newcommand{\myDegree}{Maestro en Ciencias en Ingeniería Electrónica}
+% 2.2 Autores:
+\newcommand{\myName}{Bryan Martín Miranda Leal}
+\newcommand{\myNumber}{M16121395}
+%\newcommand{\myPartner}{Otro autor}
+%----------------
+% 2.3 Mesa de revisión
+%Director:
+\newcommand{\myProf}{Gerardo Marx Chávez Campos}
+%Codirector:
+\newcommand{\myOtherProf}{Adriana del Carmen Téllez Anguiano\xspace}
+%Revisor 1:
+\newcommand{\mySupervisor}{Arturo Rangel Gonce\xspace}
+%Revisor 2:
+\newcommand{\myOtherSupervisor}{María del Carmen Cano Correa\xspace}
+%--------------
+% 2.4 Datos del instituto:
+\newcommand{\myFaculty}{Maestría en Ciencias en Ingeniería Electrónica}
+\newcommand{\myDepartment}{División de Estudios de Posgrado e Investigación}
+\newcommand{\myUni}{Instituto Tecnológico de Morelia}
+\newcommand{\myLocation}{Morelia, Michoacán, México}
+\newcommand{\myTime}{Junio 2025}
+\newcommand{\myThesisVersion}{Rev 2.0}
+
+%---------------------
+% 3	USEFUL COMMANDS
+%---------------------
+\newcommand{\ie}{i.\,e.}
+\newcommand{\Ie}{I.\,e.}
+\newcommand{\eg}{e.\,g.}
+\newcommand{\Eg}{E.\,g.}
+
+
+%-------------------------
+% 4. Required packages for
+% figures, plots, subfigures
+%-------------------------
+\usepackage{float}
+\usepackage{subfigure}
+\usepackage{tikz}
+\usepackage{booktabs} %Beautiful tables
+\usepackage{todonotes} %Todo list for comments
+\usepackage[version-1-compatibility]{siunitx} %easy writting of SI units
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.10}
+\decimalpoint %Decimal point enable
+\usepackage[acronym]{glossaries}
+%-------------------------
+% 5. setting space for indentation
+% space between paragraphs and
+% baseline.
+% Uncomment to set parameters
+%-------------------------
+% \setlength{\parindent}{4em}
+\setlength{\parskip}{0.5em}
+%\renewcommand{\baselinestretch}{2.0} % Interlineado
