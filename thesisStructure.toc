@@ -1,0 +1,73 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {chapter}{Prólogo}{\es@scroman {iii}}{chapter*.1}%
+\contentsline {chapter}{Abstract}{\es@scroman {iv}}{chapter*.2}%
+\contentsline {chapter}{Resumen}{\es@scroman {v}}{chapter*.3}%
+\contentsline {chapter}{\numberline {1}Introducción}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Revisión del estado del arte}{2}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Planteamiento del problema}{7}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Objetivos}{7}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Objetivo general}{7}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Objetivos particulares}{8}{subsection.1.3.2}%
+\contentsline {section}{\numberline {1.4}Hipótesis}{8}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Metodología}{8}{section.1.5}%
+\contentsline {section}{\numberline {1.6}Conclusiones}{11}{section.1.6}%
+\contentsline {chapter}{\numberline {2}Regresores y Clasificadores}{12}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Introducción}{12}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Modelo de Regresión Lineal}{14}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Método de Mínimos Cuadrados para la Regresión Lineal}{15}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Descenso por Gradiente}{15}{subsection.2.2.2}%
+\contentsline {section}{\numberline {2.3}Modelos no Lineales para Clasificación}{18}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Regresión Logística}{18}{subsection.2.3.1}%
+\contentsline {section}{\numberline {2.4}Redes Neuronales Artificiales}{20}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}La Neurona Biológica}{20}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Aproximación Matemática Para Un Modelo De Neurona Artificial}{22}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}Interconexión De Neuronas Para Una Red Neuronal Artificial}{23}{subsection.2.4.3}%
+\contentsline {subsection}{\numberline {2.4.4}Funciones De Activación}{25}{subsection.2.4.4}%
+\contentsline {subsection}{\numberline {2.4.5}Entrenamiento De Una Red Neuronal}{28}{subsection.2.4.5}%
+\contentsline {section}{\numberline {2.5}Conclusiones}{38}{section.2.5}%
+\contentsline {chapter}{\numberline {3}Materiales y Métodos}{39}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Medición de Temperatura}{39}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Principio de Funcionamiento de la Sonda PT-1000}{40}{subsection.3.1.1}%
+\contentsline {section}{\numberline {3.2}Medición de Potencial de Hidrógeno (pH)}{41}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Principio de Funcionamiento de la Sonda de pH}{42}{subsection.3.2.1}%
+\contentsline {section}{\numberline {3.3}Medición de Potencial de Óxido-Reducción (ORP)}{43}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Principio de Funcionamiento de la Sonda de ORP}{44}{subsection.3.3.1}%
+\contentsline {section}{\numberline {3.4}Medición de Conductividad Eléctrica}{45}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Principio de Funcionamiento de la Sonda K 0.1}{46}{subsection.3.4.1}%
+\contentsline {section}{\numberline {3.5}Medición de Oxígeno Disuelto}{47}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}Principio de Funcionamiento de la Sonda Lab Grade}{48}{subsection.3.5.1}%
+\contentsline {section}{\numberline {3.6}Equipo Wi-Fi Pool Kit de Atlas Scientific}{49}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Calibración de los Sondas de Medición}{50}{section.3.7}%
+\contentsline {subsection}{\numberline {3.7.1}Sonda de Temperatura}{50}{subsection.3.7.1}%
+\contentsline {subsection}{\numberline {3.7.2}Sonda de pH}{50}{subsection.3.7.2}%
+\contentsline {subsection}{\numberline {3.7.3}Sonda de ORP}{51}{subsection.3.7.3}%
+\contentsline {subsection}{\numberline {3.7.4}Sonda de Conductividad Eléctrica}{51}{subsection.3.7.4}%
+\contentsline {subsection}{\numberline {3.7.5}Sonda de Oxígeno Disuelto}{52}{subsection.3.7.5}%
+\contentsline {section}{\numberline {3.8}Configuración de la tarjeta PCB del equipo WiFi Pool Kit de Atlas Scientific}{52}{section.3.8}%
+\contentsline {section}{\numberline {3.9}Conclusiones}{58}{section.3.9}%
+\contentsline {chapter}{\numberline {4}Métodos Estadísticos Para Procesamiento de Datos}{59}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Conceptos Básicos}{59}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Tipos de Datos}{60}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Fuentes de Obtención de los Datos}{60}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Estadística Descriptiva}{61}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Datos Atípicos}{62}{subsection.4.4.1}%
+\contentsline {section}{\numberline {4.5}Coeficiente de Correlación Lineal de Pearson}{62}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Conclusiones}{66}{section.4.6}%
+\contentsline {chapter}{\numberline {5}Proceso de Potabilización}{67}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Conclusiones}{77}{section.5.1}%
+\contentsline {chapter}{\numberline {6}Desarrollo y Resultados}{78}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Recolección de muestras del proceso de potabilización}{78}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Resultados estadísticos de los parámetros de calidad del agua}{87}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Parámetros descartados}{87}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Parámetros significativos}{90}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}Parámetros significativos con datos atípicos de época de lluvias}{94}{subsection.6.2.3}%
+\contentsline {section}{\numberline {6.3}Resultados para modelos de clasificación mediante redes neuronales}{98}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Resultados para conjunto principal de datos}{98}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}Resultados para conjunto principal de datos. Entrenamiento con 70$\%$ de los datos}{102}{subsection.6.3.2}%
+\contentsline {subsection}{\numberline {6.3.3}Resultados de clasificación con datos atípicos}{103}{subsection.6.3.3}%
+\contentsline {section}{\numberline {6.4}Conclusiones}{105}{section.6.4}%
+\contentsline {chapter}{\numberline {7}Conclusiones y trabajo futuro}{106}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Trabajo futuro}{108}{section.7.1}%
+\contentsline {chapter}{\numberline {A}Implementación en Python de modelo de red neuronal}{110}{appendix.Alph1}%
+\contentsline {chapter}{\numberline {B}Programación del Equipo Wi-Fi Pool Kit de Atlas Scientific}{115}{appendix.Alph2}%
+\contentsline {chapter}{\numberline {C}Repositorios}{125}{appendix.Alph3}%

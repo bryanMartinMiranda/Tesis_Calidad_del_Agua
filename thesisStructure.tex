@@ -1,0 +1,69 @@
+% Engineering, master and phd degree 
+%PROPOSAL(PROTOCOL) format, April 2021, for the 
+%**Instituto Tecnológico de Morelia**
+%-=-=-=-=-=-=-=-=-=-=-=-=-
+% 1)Configuration:
+\documentclass[listings,drafting,spanish]{itmthesis} %itm thesis class
+\input{configuration}% configuration and packages
+\input{FrontBackMatter/glossary-entries}
+
+%\usepackage{tikz}
+%\usetikzlibrary{shapes.geometric, arrows}
+\usetikzlibrary{shapes, arrows}
+
+\usepackage{pstricks,pst-node}
+
+\usepackage[outline]{contour} % glow around text
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{listofitems} % for \readlist to create arrays
+\tikzstyle{neuron}=[thick,draw=blue,fill=blue!20,circle,minimum size=22]
+\tikzstyle{input}=[thick,draw=green,fill=green!20,circle,minimum size=22]
+\tikzstyle{output}=[thick,draw=red,fill=red!20,circle,minimum size=22]
+\tikzstyle{connect}=[->,thick,shorten >=1]
+
+
+\begin{document}
+% -=-=-=-=-=-=-=-=-=-=-=-=-
+% 2)Front Matter:
+\pagenumbering{roman} % Roman page numbering 
+\input{precontent} %Includes titlepage, dedication, Foreword, abstract, publication, acknowledgement
+\include{FrontBackMatter/Contents} % Contents, list of figures/tables/listings and acronyms
+\pagenumbering{arabic} % Arabic page numbering
+%-=-=-=-=-=-=-=-=-=-=-=-=-
+% 3) Thesis Main Contents
+\include{Chapters/Chapter01} %Introduction
+\cleardoublepage
+\include{Chapters/Chapter100}
+\cleardoublepage
+\include{Chapters/Chapter101}
+\cleardoublepage
+\include{Chapters/Chapter102}
+\cleardoublepage
+\include{Chapters/Chapter103}
+\cleardoublepage
+\include{Chapters/Chapter02} %Results
+\cleardoublepage
+\include{Chapters/Chapter104}
+%\include{Chapters/Chapter03}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-
+% Apendix
+\appendix
+\include{Chapters/Chapter0A} % Appendix A
+\include{Chapters/Chapter105} % Appendix B
+\include{Chapters/Chapter106} % Appendix C
+%-=-=-=-=-=-=-=-=-=-=-=-=-
+% 4) References
+\cleardoublepage
+\include{FrontBackMatter/Bibliography}
+%-=-=-=-=-=-=-=-=-=-=-=-=-
+% 5) Back Matter
+\cleardoublepage
+\include{FrontBackMatter/Colophon}
+%-=-=-=-=-=-=-=-=-=-=-=-=-
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
